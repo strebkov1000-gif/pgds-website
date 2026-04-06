@@ -1,0 +1,182 @@
+# Конфигурация Decap CMS для сайта ПГДС
+# Документация: https://decapcms.org/docs/configuration-options/
+
+# Backend конфигурация
+backend:
+  name: git-gateway  # Используем Git Gateway через Netlify Identity
+  branch: master     # Основная ветка
+
+# Локальная разработка (раскомментируйте для тестирования локально)
+# local_backend: true
+
+# Папка для загрузки медиа-файлов
+media_folder: "public/images"
+public_folder: "/images"
+
+# Язык интерфейса
+locale: ru
+
+# Настройка отображения
+display_url: https://ca225020.tw1.ru
+logo_url: /images/logo.png
+
+# Коллекции контента
+collections:
+  # ===== НОВОСТИ =====
+  - name: "news"
+    label: "Новости"
+    label_singular: "Новость"
+    folder: "data"
+    identifier_field: "id"
+    extension: "json"
+    format: "json"
+    create: true
+    slug: "news"
+    editor:
+      preview: false
+    fields:
+      - {label: "ID", name: "id", widget: "string", required: true, hint: "Уникальный идентификатор (например: 1, 2, 3)"}
+      - {label: "Заголовок", name: "title", widget: "string", required: true}
+      - {label: "Краткое описание", name: "excerpt", widget: "text", required: true, hint: "Краткое описание новости для предпросмотра"}
+      - {label: "Полное содержание", name: "content", widget: "markdown", required: true}
+      - {label: "Дата публикации", name: "date", widget: "date", format: "YYYY-MM-DD", date_format: "DD.MM.YYYY", required: true}
+      - {label: "Категория", name: "category", widget: "select", options: ["Проекты", "Компания", "Оборудование", "Партнёры"], required: true}
+      - {label: "Изображение", name: "image", widget: "image", required: true, hint: "Рекомендуемый размер: 1200x800px"}
+
+  # ===== ПРОЕКТЫ =====
+  - name: "projects"
+    label: "Проекты"
+    label_singular: "Проект"
+    folder: "data"
+    identifier_field: "id"
+    extension: "json"
+    format: "json"
+    create: true
+    slug: "projects"
+    editor:
+      preview: false
+    fields:
+      - {label: "ID", name: "id", widget: "string", required: true}
+      - {label: "Название проекта", name: "title", widget: "string", required: true}
+      - {label: "Описание", name: "description", widget: "text", required: true}
+      - {label: "Категория", name: "category", widget: "select", options: ["Жилые объекты", "Реконструкция", "Промышленные объекты", "Коммерческие объекты"], required: true}
+      - {label: "Статус", name: "status", widget: "select", options: ["В процессе", "Завершен", "Планируется"], required: true}
+      - {label: "Год", name: "year", widget: "number", value_type: "int", min: 2020, max: 2030, required: true}
+      - {label: "Местоположение", name: "location", widget: "string", required: true}
+      - {label: "Изображение", name: "image", widget: "image", required: true}
+
+  # ===== ВАКАНСИИ =====
+  - name: "vacancies"
+    label: "Вакансии"
+    label_singular: "Вакансия"
+    folder: "data"
+    identifier_field: "id"
+    extension: "json"
+    format: "json"
+    create: true
+    slug: "vacancies"
+    editor:
+      preview: false
+    fields:
+      - {label: "ID", name: "id", widget: "string", required: true}
+      - {label: "Должность", name: "title", widget: "string", required: true}
+      - {label: "Отдел", name: "department", widget: "string", required: true}
+      - {label: "Местоположение", name: "location", widget: "string", required: true}
+      - {label: "Тип занятости", name: "type", widget: "select", options: ["Полная занятость", "Частичная занятость", "Вахтовый метод", "Удалённая работа"], required: true}
+      - {label: "Требования", name: "requirements", widget: "list", required: true, hint: "Добавьте требования к кандидату"}
+      - {label: "Обязанности", name: "responsibilities", widget: "list", required: true, hint: "Добавьте обязанности"}
+      - {label: "Заработная плата", name: "salary", widget: "string", required: true, hint: "Например: от 80 000 руб."}
+      - {label: "Дата публикации", name: "posted", widget: "date", format: "YYYY-MM-DD", date_format: "DD.MM.YYYY", required: true}
+
+  # ===== ТЕНДЕРЫ =====
+  - name: "tenders"
+    label: "Тендеры"
+    label_singular: "Тендер"
+    folder: "data"
+    identifier_field: "id"
+    extension: "json"
+    format: "json"
+    create: true
+    slug: "tenders"
+    editor:
+      preview: false
+    fields:
+      - {label: "ID", name: "id", widget: "string", required: true}
+      - {label: "Название тендера", name: "title", widget: "string", required: true}
+      - {label: "Описание", name: "description", widget: "text", required: true}
+      - {label: "Срок подачи заявок", name: "deadline", widget: "date", format: "YYYY-MM-DD", date_format: "DD.MM.YYYY", required: true}
+      - {label: "Бюджет", name: "budget", widget: "string", required: true}
+      - {label: "Статус", name: "status", widget: "select", options: ["Активный", "Завершён", "Отменён"], required: true}
+      - {label: "Требования", name: "requirements", widget: "text", required: true}
+      - {label: "Дата публикации", name: "posted", widget: "date", format: "YYYY-MM-DD", date_format: "DD.MM.YYYY", required: true}
+
+  # ===== ОСНОВНОЙ КОНТЕНТ =====
+  - name: "content"
+    label: "Основная информация"
+    files:
+      # Информация о компании
+      - label: "О компании"
+        name: "company"
+        file: "data/content.json"
+        fields:
+          - label: "Компания"
+            name: "company"
+            widget: "object"
+            fields:
+              - {label: "Краткое название", name: "name", widget: "string"}
+              - {label: "Полное название", name: "fullName", widget: "string"}
+              - {label: "Слоган", name: "slogan", widget: "string"}
+              - {label: "Описание", name: "description", widget: "text"}
+              - label: "Статистика"
+                name: "stats"
+                widget: "object"
+                fields:
+                  - {label: "Выручка", name: "revenue", widget: "string"}
+                  - {label: "Период выручки", name: "revenuePeriod", widget: "string"}
+                  - {label: "Количество инженеров", name: "engineers", widget: "number"}
+                  - {label: "Линейный персонал", name: "linePersonnel", widget: "number"}
+              - {label: "Сертификаты", name: "certifications", widget: "list"}
+              - label: "Контакты"
+                name: "contacts"
+                widget: "object"
+                fields:
+                  - {label: "Телефон", name: "phone", widget: "string"}
+                  - {label: "Email", name: "email", widget: "string"}
+                  - {label: "Адрес", name: "address", widget: "string"}
+
+          # Услуги
+          - label: "Услуги"
+            name: "services"
+            widget: "list"
+            fields:
+              - {label: "ID", name: "id", widget: "string"}
+              - {label: "Название услуги", name: "title", widget: "string"}
+              - {label: "Описание", name: "description", widget: "text"}
+              - {label: "Иконка", name: "icon", widget: "select", options: ["pipe", "wrench", "building", "factory", "fileText"]}
+
+          # Оборудование
+          - label: "Оборудование"
+            name: "equipment"
+            widget: "list"
+            fields:
+              - {label: "Название", name: "name", widget: "string"}
+              - {label: "Модели", name: "models", widget: "list"}
+
+          # Партнёры
+          - label: "Партнёры"
+            name: "partners"
+            widget: "list"
+            fields:
+              - {label: "ID", name: "id", widget: "string"}
+              - {label: "Название", name: "name", widget: "string"}
+              - {label: "Логотип", name: "logo", widget: "image"}
+
+          # Регионы работы
+          - label: "Регионы работы"
+            name: "regions"
+            widget: "list"
+            fields:
+              - {label: "ID", name: "id", widget: "string"}
+              - {label: "Название", name: "name", widget: "string"}
+              - {label: "Координаты", name: "coordinates", widget: "list", required: false, hint: "Широта и долгота [55.7558, 37.6173]"}
+              - {label: "Описание", name: "description", widget: "string", required: false}

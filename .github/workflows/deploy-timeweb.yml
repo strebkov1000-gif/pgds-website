@@ -1,0 +1,48 @@
+name: Deploy to Timeweb
+
+# Автоматический деплой при:
+# 1. Push в ветку master
+# 2. Ручной запуск через GitHub Actions
+on:
+  push:
+    branches: [ master ]
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Шаг 1: Получить код из репозитория
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Шаг 2: Установить Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      # Шаг 3: Установить зависимости
+      - name: Install dependencies
+        run: npm ci
+
+      # Шаг 4: Собрать статический сайт
+      - name: Build static site
+        run: npm run build
+
+      # Шаг 5: Загрузить на Timeweb через FTP
+      - name: Deploy to Timeweb via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./out/
+          server-dir: /public_html/
+          # Исключаем файлы, которые не нужно загружать
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
