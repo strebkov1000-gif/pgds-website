@@ -1,0 +1,85 @@
+═══════════════════════════════════════════════════════════════
+    ЧЕКЛИСТ НАСТРОЙКИ CMS ДЛЯ TIMEWEB - Распечатайте это!
+═══════════════════════════════════════════════════════════════
+
+☐ ШАГ 1: GITHUB РЕПОЗИТОРИЙ (3 мин)
+    ☐ Открыть https://github.com/new
+    ☐ Название: pgds-website
+    ☐ Create repository
+    ☐ Выполнить команды:
+        cd "c:\Users\qtosh1\pgds-website"
+        git remote add origin https://github.com/USERNAME/pgds-website.git
+        git push -u origin master
+    ✓ Проверка: Код появился на GitHub
+
+═══════════════════════════════════════════════════════════════
+
+☐ ШАГ 2: NETLIFY ДЕПЛОЙ (5 мин)
+    ☐ Открыть https://app.netlify.com/signup
+    ☐ Войти через GitHub
+    ☐ Add new site → Import from GitHub
+    ☐ Выбрать pgds-website
+    ☐ Build command: npm run build
+    ☐ Publish directory: out
+    ☐ Deploy
+    ✓ Проверка: Сайт доступен по Netlify URL
+
+═══════════════════════════════════════════════════════════════
+
+☐ ШАГ 3: NETLIFY IDENTITY (3 мин)
+    ☐ Site settings → Identity
+    ☐ Enable Identity
+    ☐ Registration: Invite only
+    ☐ Services → Git Gateway → Enable
+    ✓ Проверка: Git Gateway enabled
+
+═══════════════════════════════════════════════════════════════
+
+☐ ШАГ 4: GITHUB FTP СЕКРЕТЫ (5 мин)
+    ☐ GitHub repo → Settings → Secrets → Actions
+    ☐ New repository secret:
+        ☐ FTP_SERVER: vh434.timeweb.ru
+        ☐ FTP_USERNAME: ca225020
+        ☐ FTP_PASSWORD: [ваш пароль]
+    ✓ Проверка: 3 секрета добавлены
+
+═══════════════════════════════════════════════════════════════
+
+☐ ШАГ 5: ТЕСТ ДЕПЛОЯ (5 мин)
+    ☐ Выполнить:
+        git commit --allow-empty -m "Test deploy"
+        git push
+    ☐ GitHub → Actions → проверить статус
+    ☐ Дождаться зелёной галочки
+    ☐ Открыть https://ca225020.tw1.ru
+    ✓ Проверка: Сайт работает на Timeweb
+
+═══════════════════════════════════════════════════════════════
+
+☐ ШАГ 6: ПРИГЛАСИТЬ ЗАКАЗЧИКА (2 мин)
+    ☐ Netlify → Identity → Invite users
+    ☐ Email заказчика: _______________________
+    ☐ Send invite
+    ☐ Отправить инструкцию (файл прикреплён)
+    ✓ Проверка: Заказчик получил письмо
+
+═══════════════════════════════════════════════════════════════
+
+✅ ГОТОВО! ПРОЕКТ ПЕРЕДАН ЗАКАЗЧИКУ
+
+Админка: https://_____________.netlify.app/admin
+Сайт: https://ca225020.tw1.ru
+Email заказчика: _______________________
+
+Дата передачи: _______________
+Подпись: _______________
+
+═══════════════════════════════════════════════════════════════
+
+ВАЖНЫЕ ССЫЛКИ:
+
+GitHub репозиторий: https://github.com/________/pgds-website
+Netlify dashboard: https://app.netlify.com
+Timeweb FTP: vh434.timeweb.ru (логин: ca225020)
+
+═══════════════════════════════════════════════════════════════
