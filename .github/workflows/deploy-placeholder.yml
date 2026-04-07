@@ -1,0 +1,44 @@
+name: Deploy Placeholder to pgds-stroy.ru
+
+# Запускается вручную или при изменении файла заглушки
+on:
+  workflow_dispatch:
+  push:
+    branches: [ master ]
+    paths:
+      - 'public/placeholder-index.html'
+
+jobs:
+  deploy-placeholder:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Шаг 1: Получить код из репозитория
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Шаг 2: Загрузить заглушку на Timeweb через FTP
+      - name: Deploy placeholder to zaglushka folder
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./public/
+          server-dir: /public_html/zaglushka/
+          # Загружаем только файл заглушки
+          exclude: |
+            **/*
+            !placeholder-index.html
+
+      # Шаг 3: Переименовать файл в index.html
+      - name: Rename placeholder to index.html
+        run: |
+          sudo apt-get update && sudo apt-get install -y lftp
+
+          lftp -u ${{ secrets.FTP_USERNAME }},${{ secrets.FTP_PASSWORD }} ${{ secrets.FTP_SERVER }} << 'EOF'
+          cd /public_html/zaglushka
+          rename placeholder-index.html index.html
+          chmod 644 index.html
+          bye
+          EOF
