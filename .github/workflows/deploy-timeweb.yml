@@ -53,10 +53,12 @@ jobs:
           # Установить lftp для работы с FTP
           sudo apt-get update && sudo apt-get install -y lftp
 
-          # Исправить права: 644 для файлов, 755 для папок
+          # Исправить права: 755 для всех папок, 644 для всех файлов
           lftp -u ${{ secrets.FTP_USERNAME }},${{ secrets.FTP_PASSWORD }} ${{ secrets.FTP_SERVER }} << 'EOF'
           cd /public_html
-          chmod -R 644 *.html *.txt *.json
-          chmod -R 755 */
+          # Сначала все папки - 755
+          find . -type d -exec chmod 755 {} \;
+          # Потом все файлы - 644
+          find . -type f -exec chmod 644 {} \;
           bye
           EOF
