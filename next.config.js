@@ -2,6 +2,8 @@
 const nextConfig = {
   output: 'export',  // Статический экспорт для обычного хостинга
 
+  trailingSlash: true,  // Создаёт /about/index.html вместо /about.html
+
   images: {
     unoptimized: true,  // Отключаем оптимизацию для static export
   },
