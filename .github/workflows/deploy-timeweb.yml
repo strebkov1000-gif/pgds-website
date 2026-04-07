@@ -46,3 +46,17 @@ jobs:
             **/.git*
             **/.git*/**
             **/node_modules/**
+
+      # Шаг 6: Исправить права доступа к файлам
+      - name: Fix file permissions
+        run: |
+          # Установить lftp для работы с FTP
+          sudo apt-get update && sudo apt-get install -y lftp
+
+          # Исправить права: 644 для файлов, 755 для папок
+          lftp -u ${{ secrets.FTP_USERNAME }},${{ secrets.FTP_PASSWORD }} ${{ secrets.FTP_SERVER }} << 'EOF'
+          cd /public_html
+          chmod -R 644 *.html *.txt *.json
+          chmod -R 755 */
+          bye
+          EOF
