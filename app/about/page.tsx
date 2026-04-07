@@ -4,6 +4,8 @@ import FadeIn from '@/components/animations/FadeIn'
 import StaggerContainer from '@/components/animations/StaggerContainer'
 import StaggerItem from '@/components/animations/StaggerItem'
 import AnimatedCounter from '@/components/animations/AnimatedCounter'
+import RotateIn from '@/components/animations/RotateIn'
+import FloatingIcon from '@/components/animations/FloatingIcon'
 
 export default function AboutPage() {
   const { company, equipment } = content
@@ -115,7 +117,11 @@ export default function AboutPage() {
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-8" staggerDelay={0.15}>
             <StaggerItem>
               <div className="bg-white p-8 rounded-lg shadow-md text-center hover:shadow-xl hover:-translate-y-2 transition-all duration-300">
-                <Users className="h-12 w-12 text-accent-500 mx-auto mb-4" />
+                <RotateIn delay={0.3}>
+                  <FloatingIcon delay={0}>
+                    <Users className="h-12 w-12 text-accent-500 mx-auto mb-4" />
+                  </FloatingIcon>
+                </RotateIn>
                 <AnimatedCounter
                   end={company.stats.engineers}
                   className="text-4xl font-bold text-primary-500 mb-2"
@@ -125,7 +131,11 @@ export default function AboutPage() {
             </StaggerItem>
             <StaggerItem>
               <div className="bg-white p-8 rounded-lg shadow-md text-center hover:shadow-xl hover:-translate-y-2 transition-all duration-300">
-                <Users className="h-12 w-12 text-accent-500 mx-auto mb-4" />
+                <RotateIn delay={0.4}>
+                  <FloatingIcon delay={0.2}>
+                    <Users className="h-12 w-12 text-accent-500 mx-auto mb-4" />
+                  </FloatingIcon>
+                </RotateIn>
                 <AnimatedCounter
                   end={company.stats.linePersonnel}
                   className="text-4xl font-bold text-primary-500 mb-2"
@@ -135,7 +145,11 @@ export default function AboutPage() {
             </StaggerItem>
             <StaggerItem>
               <div className="bg-white p-8 rounded-lg shadow-md text-center hover:shadow-xl hover:-translate-y-2 transition-all duration-300">
-                <Award className="h-12 w-12 text-accent-500 mx-auto mb-4" />
+                <RotateIn delay={0.5}>
+                  <FloatingIcon delay={0.4}>
+                    <Award className="h-12 w-12 text-accent-500 mx-auto mb-4" />
+                  </FloatingIcon>
+                </RotateIn>
                 <div className="text-2xl font-bold text-primary-500 mb-2">
                   {company.stats.revenue}
                 </div>
@@ -193,7 +207,9 @@ export default function AboutPage() {
             {equipment.map((item, index) => (
               <StaggerItem key={index}>
                 <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                  <Wrench className="h-10 w-10 text-accent-500 mb-4" />
+                  <RotateIn delay={index * 0.1}>
+                    <Wrench className="h-10 w-10 text-accent-500 mb-4" />
+                  </RotateIn>
                   <h3 className="text-lg font-semibold text-primary-500 mb-2">
                     {item.name}
                   </h3>
