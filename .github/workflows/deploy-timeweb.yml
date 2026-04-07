@@ -46,19 +46,26 @@ jobs:
             **/.git*
             **/.git*/**
             **/node_modules/**
+          # Безопасные настройки FTP
+          dangerous-clean-slate: true
 
-      # Шаг 6: Исправить права доступа к файлам
-      - name: Fix file permissions
+      # Шаг 6: Исправить права доступа рекурсивно
+      - name: Fix file permissions recursively
         run: |
-          # Установить lftp для работы с FTP
           sudo apt-get update && sudo apt-get install -y lftp
 
-          # Исправить права: 755 для всех папок, 644 для всех файлов
           lftp -u ${{ secrets.FTP_USERNAME }},${{ secrets.FTP_PASSWORD }} ${{ secrets.FTP_SERVER }} << 'EOF'
+          set ftp:list-options -a
           cd /public_html
-          # Сначала все папки - 755
-          find . -type d -exec chmod 755 {} \;
-          # Потом все файлы - 644
-          find . -type f -exec chmod 644 {} \;
+
+          # Используем glob для рекурсивного обхода
+          glob -a chmod 644 **/*.html
+          glob -a chmod 644 **/*.txt
+          glob -a chmod 644 **/*.json
+          glob -a chmod 644 **/*.xml
+          glob -a chmod 644 **/*.ico
+          glob -a chmod 644 **/*.js
+          glob -a chmod 644 **/*.css
+
           bye
           EOF
