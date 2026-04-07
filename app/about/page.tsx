@@ -21,24 +21,74 @@ export default function AboutPage() {
             <h2 className="text-3xl font-bold text-primary-500 mb-6">
               {company.fullName}
             </h2>
-            <p className="text-gray-700 mb-6">
-              ПГДС сегодня это оптовый подрядчик и надежный партнер в строительстве
-              распределительных газопроводов! Мы активно сотрудничаем с ООО «Газпром
-              Газораспределение Тула», ООО «Газпром Газораспределение Архангельск»,
-              АО «Мособлгаз».
+            <p className="text-gray-700 mb-6 text-lg">
+              {company.about}
             </p>
+
+            {/* Mission */}
+            <h3 className="text-2xl font-bold text-primary-500 mb-4 mt-8">
+              Наша миссия
+            </h3>
             <p className="text-gray-700 mb-6">
-              В 2025 году главным активом компании являются ее сотрудники. Сегодня в
-              штате ООО «ПГДС» числится 27 инженерно-технических работников и 140
-              человек линейного персонала.
+              {company.mission}
             </p>
-            <p className="text-gray-700 mb-6">
-              Специалисты нашей компании имеют все необходимые допуски и аттестации,
-              чтобы производить работы на высоком профессиональном уровне!
-            </p>
+
+            {/* Social Gasification */}
+            {company.socialGasification && (
+              <>
+                <h3 className="text-2xl font-bold text-primary-500 mb-4 mt-8">
+                  {company.socialGasification.title}
+                </h3>
+                <p className="text-gray-700 mb-6">
+                  {company.socialGasification.description}
+                </p>
+              </>
+            )}
+
+            {/* Branches */}
+            {company.branches && company.branches.length > 0 && (
+              <>
+                <h3 className="text-2xl font-bold text-primary-500 mb-4 mt-8">
+                  География присутствия
+                </h3>
+                <p className="text-gray-700 mb-4">
+                  Филиалы ООО «ПГДС» расположены в:
+                </p>
+                <ul className="list-disc list-inside text-gray-700 mb-6">
+                  {company.branches.map((branch, index) => (
+                    <li key={index}>
+                      <strong>{branch.city}</strong> — {branch.type}
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
           </div>
         </div>
       </section>
+
+      {/* Values */}
+      {company.values && company.values.length > 0 && (
+        <section className="py-16 bg-gradient-to-r from-primary-50 to-primary-100">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <h2 className="text-3xl font-bold text-primary-500 mb-12 text-center">
+              Наши ценности
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {company.values.map((value, index) => (
+                <div key={index} className="bg-white p-6 rounded-lg shadow-md">
+                  <h3 className="text-xl font-bold text-primary-500 mb-3">
+                    {value.title}
+                  </h3>
+                  <p className="text-gray-700">
+                    {value.description}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Stats */}
       <section className="py-16 bg-gray-50">
