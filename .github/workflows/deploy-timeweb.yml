@@ -46,8 +46,7 @@ jobs:
             **/.git*
             **/.git*/**
             **/node_modules/**
-          # Безопасные настройки FTP
-          dangerous-clean-slate: true
+            zaglushka/**
 
       # Шаг 6: Исправить права доступа (755 для чтения/исполнения)
       - name: Fix file permissions
