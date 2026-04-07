@@ -6,6 +6,9 @@ import StaggerItem from '@/components/animations/StaggerItem'
 import AnimatedCounter from '@/components/animations/AnimatedCounter'
 import RotateIn from '@/components/animations/RotateIn'
 import FloatingIcon from '@/components/animations/FloatingIcon'
+import ParallaxObject from '@/components/backgrounds/ParallaxObject'
+import ExcavatorSVG from '@/components/backgrounds/ExcavatorSVG'
+import GasPipeSVG from '@/components/backgrounds/GasPipeSVG'
 
 export default function AboutPage() {
   const { company, equipment } = content
@@ -13,8 +16,26 @@ export default function AboutPage() {
   return (
     <div className="bg-white">
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-primary-500 to-primary-700 text-white py-16">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <section className="relative bg-gradient-to-r from-primary-500 to-primary-700 text-white py-16 overflow-hidden">
+        {/* Parallax Background Objects */}
+        <div className="absolute inset-0 pointer-events-none hidden lg:block">
+          <ParallaxObject
+            speed={0.3}
+            direction="down"
+            className="absolute left-[-100px] top-[-50px] w-[500px] h-[400px]"
+          >
+            <ExcavatorSVG className="w-full h-full" />
+          </ParallaxObject>
+          <ParallaxObject
+            speed={0.5}
+            direction="up"
+            className="absolute right-[-80px] top-0 w-[350px] h-[450px]"
+          >
+            <GasPipeSVG className="w-full h-full" />
+          </ParallaxObject>
+        </div>
+
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <FadeIn delay={0.2}>
             <h1 className="text-4xl sm:text-5xl font-bold mb-4">О компании</h1>
             <p className="text-xl max-w-3xl">{company.description}</p>
