@@ -25,13 +25,16 @@ export default function Header() {
         <div className="flex w-full items-center justify-between py-4">
           {/* Logo */}
           <div className="flex items-center">
-            <Link href="/" className="flex items-center space-x-3">
-              <div className="h-12 w-12 rounded-lg bg-accent-500 flex items-center justify-center">
-                <div className="text-white font-bold text-xl">ПГДС</div>
+            <Link href="/" className="flex items-center space-x-4 group">
+              <div className="relative h-14 w-14 rounded-xl bg-gradient-to-br from-accent-400 to-accent-600 flex items-center justify-center shadow-lg group-hover:shadow-xl transition-shadow">
+                <div className="text-white font-bold text-2xl tracking-tight">П</div>
+                <div className="absolute -bottom-1 -right-1 h-6 w-6 rounded-md bg-primary-600 flex items-center justify-center">
+                  <div className="text-white font-bold text-xs">Г</div>
+                </div>
               </div>
               <div className="text-white">
-                <div className="text-xl font-bold">ПГДС</div>
-                <div className="text-sm opacity-90">с нами теплее</div>
+                <div className="text-2xl font-bold tracking-wide">ПГДС</div>
+                <div className="text-xs text-accent-300 font-medium">Проектирование газораспределения</div>
               </div>
             </Link>
           </div>
