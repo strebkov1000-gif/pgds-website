@@ -22,70 +22,67 @@ export default function YandexMap({ regions, apiKey }: YandexMapProps) {
   useEffect(() => {
     if (!mapRef.current || mapInstanceRef.current || !apiKey) return;
 
-    const initMap = async () => {
-    if (!mapRef.current) return;
-
-    try {
-      // @ts-ignore
-      await ymaps3.ready;
+    const initMap = () => {
+      if (!mapRef.current) return;
 
       // @ts-ignore
-      const { YMap, YMapDefaultSchemeLayer, YMapDefaultFeaturesLayer, YMapMarker } = ymaps3;
+      if (!window.ymaps) {
+        console.error('Yandex Maps API не загружен');
+        return;
+      }
 
-      // Создаем карту
-      const map = new YMap(mapRef.current, {
-        location: {
-          center: [65, 60], // долгота, широта (в Yandex Maps 3.0 порядок изменился!)
-          zoom: 3,
-        },
+      // @ts-ignore
+      window.ymaps.ready(() => {
+        try {
+          // @ts-ignore
+          const map = new window.ymaps.Map(mapRef.current, {
+            center: [60, 65],
+            zoom: 3,
+            controls: ['zoomControl'],
+          });
+
+          // Фильтруем регионы с координатами
+          const regionsWithCoordinates = regions.filter(
+            (region) => region.coordinates && region.coordinates.length === 2
+          );
+
+          // Добавляем маркеры
+          regionsWithCoordinates.forEach((region) => {
+            if (!region.coordinates) return;
+
+            // @ts-ignore
+            const placemark = new window.ymaps.Placemark(
+              region.coordinates,
+              {
+                balloonContentHeader: region.name,
+                balloonContentBody: region.description || '',
+              },
+              {
+                iconLayout: 'default#image',
+                iconImageHref: '/map-marker.svg',
+                iconImageSize: [38, 48],
+                iconImageOffset: [-19, -48],
+              }
+            );
+
+            map.geoObjects.add(placemark);
+          });
+
+          mapInstanceRef.current = map;
+        } catch (error) {
+          console.error('Ошибка инициализации карты:', error);
+        }
       });
+    };
 
-      // Добавляем слои карты
-      map.addChild(new YMapDefaultSchemeLayer());
-      map.addChild(new YMapDefaultFeaturesLayer());
-
-      // Фильтруем регионы с координатами
-      const regionsWithCoordinates = regions.filter(
-        (region) => region.coordinates && region.coordinates.length === 2
-      );
-
-      // Добавляем маркеры
-      regionsWithCoordinates.forEach((region) => {
-        if (!region.coordinates) return;
-
-        // В Yandex Maps 3.0 координаты: [долгота, широта]
-        const coordinates = [region.coordinates[1], region.coordinates[0]];
-
-        // Создаем HTML элемент для маркера
-        const markerElement = document.createElement('div');
-        markerElement.className = 'yandex-marker';
-        markerElement.innerHTML = `
-          <div class="marker-icon">
-            <img src="/map-marker.svg" alt="${region.name}" style="width: 38px; height: 48px;" />
-          </div>
-          <div class="marker-popup">
-            <div class="marker-popup-content">
-              <h3 class="font-bold text-base text-primary">${region.name}</h3>
-              ${region.description ? `<p class="text-sm text-gray-600 mt-1">${region.description}</p>` : ''}
-            </div>
-          </div>
-        `;
-
-        const marker = new YMapMarker({ coordinates }, markerElement);
-        map.addChild(marker);
-      });
-
-      mapInstanceRef.current = map;
-    } catch (error) {
-      console.error('Ошибка инициализации карты:', error);
-    }
-  };
-
-    // Загружаем Yandex Maps API
+    // Загружаем Yandex Maps API 2.1
     const script = document.createElement('script');
-    script.src = `https://api-maps.yandex.ru/3.0/?apikey=${apiKey}&lang=ru_RU`;
+    script.src = `https://api-maps.yandex.ru/2.1/?apikey=${apiKey}&lang=ru_RU`;
     script.async = true;
     script.onload = initMap;
+    script.onerror = () => {
+      console.error('Не удалось загрузить Yandex Maps API');
+    };
     document.head.appendChild(script);
 
     return () => {
