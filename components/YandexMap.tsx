@@ -36,9 +36,9 @@ export default function YandexMap({ regions, apiKey }: YandexMapProps) {
         try {
           // @ts-ignore
           const map = new window.ymaps.Map(mapRef.current, {
-            center: [60, 65],
-            zoom: 3,
-            controls: ['zoomControl'],
+            center: [56, 50], // Центр России
+            zoom: 4, // Ближе
+            controls: ['zoomControl', 'fullscreenControl'],
           });
 
           // Фильтруем регионы с координатами
@@ -67,6 +67,14 @@ export default function YandexMap({ regions, apiKey }: YandexMapProps) {
 
             map.geoObjects.add(placemark);
           });
+
+          // Автоматически подстраиваем карту под все маркеры
+          if (regionsWithCoordinates.length > 0) {
+            map.setBounds(map.geoObjects.getBounds(), {
+              checkZoomRange: true,
+              zoomMargin: 50,
+            });
+          }
 
           mapInstanceRef.current = map;
         } catch (error) {
