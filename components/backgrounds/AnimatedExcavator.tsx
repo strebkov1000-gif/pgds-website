@@ -5,17 +5,7 @@ import Image from 'next/image'
 
 export default function AnimatedExcavator() {
   return (
-    <motion.div
-      className="relative w-full h-full opacity-40"
-      animate={{
-        rotate: [0, -2, 0, 2, 0], // Легкое покачивание экскаватора
-      }}
-      transition={{
-        duration: 8,
-        repeat: Infinity,
-        ease: 'easeInOut',
-      }}
-    >
+    <div className="relative w-full h-full opacity-40">
       <Image
         src="/images/excavator.png"
         alt="Excavator"
@@ -39,6 +29,6 @@ export default function AnimatedExcavator() {
           delay: 0.5,
         }}
       />
-    </motion.div>
+    </div>
   )
 }

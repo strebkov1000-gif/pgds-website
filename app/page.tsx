@@ -4,6 +4,9 @@ import content from '@/data/content.json'
 import ParallaxObject from '@/components/backgrounds/ParallaxObject'
 import AnimatedExcavator from '@/components/backgrounds/AnimatedExcavator'
 import AnimatedGasPipe from '@/components/backgrounds/AnimatedGasPipe'
+import FadeIn from '@/components/animations/FadeIn'
+import StaggerContainer from '@/components/animations/StaggerContainer'
+import StaggerItem from '@/components/animations/StaggerItem'
 
 export default function Home() {
   const { company, services, partners, regions } = content
@@ -63,58 +66,63 @@ export default function Home() {
       {/* Stats Section */}
       <section className="py-16 bg-gray-50">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-            <div className="bg-white p-8 rounded-lg shadow-md">
-              <div className="text-4xl font-bold text-primary-500 mb-2">
-                {company.stats.engineers}
+          <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+            <StaggerItem>
+              <div className="bg-white p-8 rounded-lg shadow-md">
+                <div className="text-4xl font-bold text-primary-500 mb-2">
+                  {company.stats.engineers}
+                </div>
+                <div className="text-gray-600">Инженеров</div>
               </div>
-              <div className="text-gray-600">Инженеров</div>
-            </div>
-            <div className="bg-white p-8 rounded-lg shadow-md">
-              <div className="text-4xl font-bold text-primary-500 mb-2">
-                {company.stats.linePersonnel}
+            </StaggerItem>
+            <StaggerItem>
+              <div className="bg-white p-8 rounded-lg shadow-md">
+                <div className="text-4xl font-bold text-primary-500 mb-2">
+                  {company.stats.linePersonnel}
+                </div>
+                <div className="text-gray-600">Линейного персонала</div>
               </div>
-              <div className="text-gray-600">Линейного персонала</div>
-            </div>
-            <div className="bg-white p-8 rounded-lg shadow-md">
-              <div className="text-2xl font-bold text-primary-500 mb-2">
-                {company.stats.revenue}
+            </StaggerItem>
+            <StaggerItem>
+              <div className="bg-white p-8 rounded-lg shadow-md">
+                <div className="text-2xl font-bold text-primary-500 mb-2">
+                  {company.stats.revenue}
+                </div>
+                <div className="text-gray-600">Выручка {company.stats.revenuePeriod}</div>
               </div>
-              <div className="text-gray-600">Выручка {company.stats.revenuePeriod}</div>
-            </div>
-          </div>
+            </StaggerItem>
+          </StaggerContainer>
         </div>
       </section>
 
       {/* Services Section */}
       <section className="py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
+          <FadeIn className="text-center mb-12">
             <h2 className="text-3xl sm:text-4xl font-bold text-primary-500 mb-4">
               Основные виды деятельности компании
             </h2>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          </FadeIn>
+          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {services.slice(0, 5).map((service) => (
-              <div
-                key={service.id}
-                className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow border-t-4 border-accent-500"
-              >
-                <div className="h-12 w-12 bg-primary-500 rounded-lg flex items-center justify-center mb-4">
-                  {service.icon === 'building' && <Building2 className="h-6 w-6 text-white" />}
-                  {service.icon === 'wrench' && <Wrench className="h-6 w-6 text-white" />}
-                  {service.icon === 'factory' && <Factory className="h-6 w-6 text-white" />}
-                  {service.icon === 'fileText' && <FileText className="h-6 w-6 text-white" />}
-                  {service.icon === 'pipe' && <Building2 className="h-6 w-6 text-white" />}
+              <StaggerItem key={service.id}>
+                <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow border-t-4 border-accent-500">
+                  <div className="h-12 w-12 bg-primary-500 rounded-lg flex items-center justify-center mb-4">
+                    {service.icon === 'building' && <Building2 className="h-6 w-6 text-white" />}
+                    {service.icon === 'wrench' && <Wrench className="h-6 w-6 text-white" />}
+                    {service.icon === 'factory' && <Factory className="h-6 w-6 text-white" />}
+                    {service.icon === 'fileText' && <FileText className="h-6 w-6 text-white" />}
+                    {service.icon === 'pipe' && <Building2 className="h-6 w-6 text-white" />}
+                  </div>
+                  <h3 className="text-xl font-semibold text-primary-500 mb-2">
+                    {service.title}
+                  </h3>
+                  <p className="text-gray-600">{service.description}</p>
                 </div>
-                <h3 className="text-xl font-semibold text-primary-500 mb-2">
-                  {service.title}
-                </h3>
-                <p className="text-gray-600">{service.description}</p>
-              </div>
+              </StaggerItem>
             ))}
-          </div>
-          <div className="text-center mt-12">
+          </StaggerContainer>
+          <FadeIn delay={0.4} className="text-center mt-12">
             <Link
               href="/services"
               className="inline-flex items-center text-accent-500 hover:text-accent-600 font-medium"
@@ -122,84 +130,86 @@ export default function Home() {
               Подробнее об услугах
               <ArrowRight className="ml-2 h-5 w-5" />
             </Link>
-          </div>
+          </FadeIn>
         </div>
       </section>
 
       {/* Map Section */}
       <section className="py-16 bg-gray-50">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
+          <FadeIn className="text-center mb-12">
             <h2 className="text-3xl sm:text-4xl font-bold text-primary-500 mb-4">
               География присутствия
             </h2>
             <p className="text-lg text-gray-600">
               Наша компания имеет несколько обособленных подразделений в регионах России
             </p>
-          </div>
-          <div className="bg-white p-8 rounded-lg shadow-md">
-            <div className="aspect-video bg-gradient-to-br from-primary-100 to-primary-50 rounded-lg flex items-center justify-center mb-6">
-              <p className="text-gray-500 text-center px-4">
-                [Карта России с отмеченными городами: Москва, Санкт-Петербург, Ставрополь, Тула, Архангельск]
-              </p>
+          </FadeIn>
+          <FadeIn delay={0.2}>
+            <div className="bg-white p-8 rounded-lg shadow-md">
+              <div className="aspect-video bg-gradient-to-br from-primary-100 to-primary-50 rounded-lg flex items-center justify-center mb-6">
+                <p className="text-gray-500 text-center px-4">
+                  [Карта России с отмеченными городами: Москва, Санкт-Петербург, Ставрополь, Тула, Архангельск]
+                </p>
+              </div>
+              <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {regions.slice(0, 5).map((region) => (
+                  <StaggerItem key={region.id}>
+                    <div className="text-center p-4 bg-gray-50 rounded-lg">
+                      <h3 className="font-semibold text-primary-500 mb-1">{region.name}</h3>
+                      {region.description && (
+                        <p className="text-sm text-gray-600">{region.description}</p>
+                      )}
+                    </div>
+                  </StaggerItem>
+                ))}
+              </StaggerContainer>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {regions.slice(0, 5).map((region) => (
-                <div key={region.id} className="text-center p-4 bg-gray-50 rounded-lg">
-                  <h3 className="font-semibold text-primary-500 mb-1">{region.name}</h3>
-                  {region.description && (
-                    <p className="text-sm text-gray-600">{region.description}</p>
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
+          </FadeIn>
         </div>
       </section>
 
       {/* Certifications */}
       <section className="py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
+          <FadeIn className="text-center mb-12">
             <h2 className="text-3xl sm:text-4xl font-bold text-primary-500 mb-4">
               Наша компания является членом
             </h2>
-          </div>
-          <div className="flex flex-wrap justify-center gap-8">
+          </FadeIn>
+          <StaggerContainer className="flex flex-wrap justify-center gap-8">
             {company.certifications.map((cert, index) => (
-              <div
-                key={index}
-                className="flex items-center justify-center w-32 h-32 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow"
-              >
-                <Award className="h-12 w-12 text-accent-500 mb-2" />
-                <span className="font-bold text-primary-500">{cert}</span>
-              </div>
+              <StaggerItem key={index}>
+                <div className="flex items-center justify-center w-32 h-32 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow">
+                  <Award className="h-12 w-12 text-accent-500 mb-2" />
+                  <span className="font-bold text-primary-500">{cert}</span>
+                </div>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerContainer>
         </div>
       </section>
 
       {/* Partners Section */}
       <section className="py-16 bg-gray-50">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
+          <FadeIn className="text-center mb-12">
             <h2 className="text-3xl sm:text-4xl font-bold text-primary-500 mb-4">
               Мы активно сотрудничаем с
             </h2>
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          </FadeIn>
+          <StaggerContainer className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {partners.map((partner) => (
-              <div
-                key={partner.id}
-                className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow flex items-center justify-center"
-              >
-                <p className="text-center text-sm font-medium text-gray-700">
-                  {partner.name}
-                </p>
-              </div>
+              <StaggerItem key={partner.id}>
+                <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow flex items-center justify-center">
+                  <p className="text-center text-sm font-medium text-gray-700">
+                    {partner.name}
+                  </p>
+                </div>
+              </StaggerItem>
             ))}
-          </div>
-          <div className="text-center mt-12">
+          </StaggerContainer>
+          <FadeIn delay={0.4} className="text-center mt-12">
             <Link
               href="/partners"
               className="inline-flex items-center text-accent-500 hover:text-accent-600 font-medium"
@@ -207,13 +217,13 @@ export default function Home() {
               Все партнеры
               <ArrowRight className="ml-2 h-5 w-5" />
             </Link>
-          </div>
+          </FadeIn>
         </div>
       </section>
 
       {/* CTA Section */}
       <section className="py-16 bg-primary-500 text-white">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
+        <FadeIn className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl sm:text-4xl font-bold mb-4">
             Готовы начать сотрудничество?
           </h2>
@@ -227,7 +237,7 @@ export default function Home() {
             Связаться с нами
             <ArrowRight className="ml-2 h-5 w-5" />
           </Link>
-        </div>
+        </FadeIn>
       </section>
     </div>
   )

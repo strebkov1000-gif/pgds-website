@@ -35,49 +35,6 @@ export default function AnimatedGasPipe() {
         <div className="absolute top-1/2 left-1/2 w-12 h-1 bg-orange-500 opacity-60 transform -translate-x-1/2 -translate-y-1/2" />
         <div className="absolute top-1/2 left-1/2 w-1 h-12 bg-orange-500 opacity-60 transform -translate-x-1/2 -translate-y-1/2" />
       </motion.div>
-
-      {/* Эффект потока газа - пульсирующие точки */}
-      <motion.div
-        className="absolute top-1/4 left-1/2 w-2 h-2 rounded-full bg-orange-400"
-        animate={{
-          opacity: [0.3, 0.7, 0.3],
-          scale: [1, 1.5, 1],
-          y: [0, -100],
-        }}
-        transition={{
-          duration: 3,
-          repeat: Infinity,
-          ease: 'easeInOut',
-        }}
-      />
-      <motion.div
-        className="absolute top-1/2 left-1/2 w-2 h-2 rounded-full bg-orange-400"
-        animate={{
-          opacity: [0.3, 0.7, 0.3],
-          scale: [1, 1.5, 1],
-          y: [0, -100],
-        }}
-        transition={{
-          duration: 3,
-          repeat: Infinity,
-          ease: 'easeInOut',
-          delay: 1,
-        }}
-      />
-      <motion.div
-        className="absolute top-3/4 left-1/2 w-2 h-2 rounded-full bg-orange-400"
-        animate={{
-          opacity: [0.3, 0.7, 0.3],
-          scale: [1, 1.5, 1],
-          y: [0, -100],
-        }}
-        transition={{
-          duration: 3,
-          repeat: Infinity,
-          ease: 'easeInOut',
-          delay: 2,
-        }}
-      />
     </div>
   )
 }
