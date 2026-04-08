@@ -23,7 +23,8 @@ interface MapWrapperProps {
 }
 
 export default function MapWrapper({ regions }: MapWrapperProps) {
-  const apiKey = process.env.NEXT_PUBLIC_YANDEX_MAPS_API_KEY || '';
+  // API ключ для статического экспорта
+  const apiKey = 'f898e291-f57f-4d3b-889d-b4aff2bed5fe';
 
   return <YandexMap regions={regions} apiKey={apiKey} />;
 }
