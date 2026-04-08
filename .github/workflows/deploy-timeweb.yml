@@ -30,6 +30,8 @@ jobs:
 
       # Шаг 4: Собрать статический сайт
       - name: Build static site
+        env:
+          NEXT_PUBLIC_YANDEX_MAPS_API_KEY: ${{ secrets.YANDEX_MAPS_API_KEY }}
         run: npm run build
 
       # Шаг 5: Загрузить на Timeweb через FTP
