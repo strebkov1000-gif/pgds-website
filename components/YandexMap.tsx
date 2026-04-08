@@ -20,23 +20,9 @@ export default function YandexMap({ regions, apiKey }: YandexMapProps) {
   const mapInstanceRef = useRef<any>(null);
 
   useEffect(() => {
-    if (!mapRef.current || mapInstanceRef.current) return;
+    if (!mapRef.current || mapInstanceRef.current || !apiKey) return;
 
-    // Загружаем Yandex Maps API
-    const script = document.createElement('script');
-    script.src = `https://api-maps.yandex.ru/3.0/?apikey=${apiKey}&lang=ru_RU`;
-    script.async = true;
-    script.onload = initMap;
-    document.head.appendChild(script);
-
-    return () => {
-      if (script.parentNode) {
-        script.parentNode.removeChild(script);
-      }
-    };
-  }, [apiKey]);
-
-  const initMap = async () => {
+    const initMap = async () => {
     if (!mapRef.current) return;
 
     try {
@@ -94,6 +80,28 @@ export default function YandexMap({ regions, apiKey }: YandexMapProps) {
       console.error('Ошибка инициализации карты:', error);
     }
   };
+
+    // Загружаем Yandex Maps API
+    const script = document.createElement('script');
+    script.src = `https://api-maps.yandex.ru/3.0/?apikey=${apiKey}&lang=ru_RU`;
+    script.async = true;
+    script.onload = initMap;
+    document.head.appendChild(script);
+
+    return () => {
+      if (script.parentNode) {
+        script.parentNode.removeChild(script);
+      }
+    };
+  }, [apiKey, regions]);
+
+  if (!apiKey) {
+    return (
+      <div className="w-full h-[400px] sm:h-[500px] lg:h-[600px] bg-red-100 rounded-lg flex items-center justify-center">
+        <p className="text-red-600">Ошибка: API ключ Яндекс.Карт не найден</p>
+      </div>
+    );
+  }
 
   return (
     <div className="w-full h-[400px] sm:h-[500px] lg:h-[600px] rounded-lg overflow-hidden shadow-lg">
