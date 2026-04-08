@@ -1,0 +1,49 @@
+/* Yandex Map Marker Styles */
+.yandex-marker {
+  position: relative;
+  cursor: pointer;
+}
+
+.marker-icon {
+  position: relative;
+  z-index: 1;
+}
+
+.marker-popup {
+  position: absolute;
+  bottom: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  padding: 12px 16px;
+  border-radius: 8px;
+  box-shadow: 0 3px 14px rgba(0, 0, 0, 0.15);
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.2s ease;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.yandex-marker:hover .marker-popup {
+  opacity: 1;
+  visibility: visible;
+}
+
+.marker-popup-content {
+  text-align: center;
+}
+
+.marker-popup-content h3 {
+  margin: 0;
+  font-weight: 700;
+  font-size: 16px;
+  color: #003d7a;
+}
+
+.marker-popup-content p {
+  margin: 4px 0 0;
+  font-size: 14px;
+  color: #6b7280;
+}
