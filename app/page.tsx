@@ -2,8 +2,8 @@ import Link from 'next/link'
 import { ArrowRight, Building2, Wrench, Factory, FileText, Award } from 'lucide-react'
 import content from '@/data/content.json'
 import ParallaxObject from '@/components/backgrounds/ParallaxObject'
-import ExcavatorSVG from '@/components/backgrounds/ExcavatorSVG'
-import GasPipeSVG from '@/components/backgrounds/GasPipeSVG'
+import AnimatedExcavator from '@/components/backgrounds/AnimatedExcavator'
+import AnimatedGasPipe from '@/components/backgrounds/AnimatedGasPipe'
 
 export default function Home() {
   const { company, services, partners, regions } = content
@@ -17,16 +17,16 @@ export default function Home() {
           <ParallaxObject
             speed={0.3}
             direction="down"
-            className="absolute left-[-100px] top-0 w-[500px] h-[400px]"
+            className="absolute left-[-100px] top-0 w-[600px] h-[500px]"
           >
-            <ExcavatorSVG className="w-full h-full" />
+            <AnimatedExcavator />
           </ParallaxObject>
           <ParallaxObject
             speed={0.5}
             direction="up"
-            className="absolute right-[-80px] top-20 w-[350px] h-[450px]"
+            className="absolute right-[-100px] top-20 w-[500px] h-[600px]"
           >
-            <GasPipeSVG className="w-full h-full" />
+            <AnimatedGasPipe />
           </ParallaxObject>
         </div>
 

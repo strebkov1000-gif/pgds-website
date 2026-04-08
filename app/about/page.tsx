@@ -7,8 +7,8 @@ import AnimatedCounter from '@/components/animations/AnimatedCounter'
 import RotateIn from '@/components/animations/RotateIn'
 import FloatingIcon from '@/components/animations/FloatingIcon'
 import ParallaxObject from '@/components/backgrounds/ParallaxObject'
-import ExcavatorSVG from '@/components/backgrounds/ExcavatorSVG'
-import GasPipeSVG from '@/components/backgrounds/GasPipeSVG'
+import AnimatedExcavator from '@/components/backgrounds/AnimatedExcavator'
+import AnimatedGasPipe from '@/components/backgrounds/AnimatedGasPipe'
 
 export default function AboutPage() {
   const { company, equipment } = content
@@ -22,16 +22,16 @@ export default function AboutPage() {
           <ParallaxObject
             speed={0.3}
             direction="down"
-            className="absolute left-[-100px] top-[-50px] w-[500px] h-[400px]"
+            className="absolute left-[-100px] top-[-50px] w-[600px] h-[500px]"
           >
-            <ExcavatorSVG className="w-full h-full" />
+            <AnimatedExcavator />
           </ParallaxObject>
           <ParallaxObject
             speed={0.5}
             direction="up"
-            className="absolute right-[-80px] top-0 w-[350px] h-[450px]"
+            className="absolute right-[-100px] top-0 w-[500px] h-[600px]"
           >
-            <GasPipeSVG className="w-full h-full" />
+            <AnimatedGasPipe />
           </ParallaxObject>
         </div>
 
