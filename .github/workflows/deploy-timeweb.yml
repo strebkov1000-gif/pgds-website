@@ -40,7 +40,7 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./out/
-          server-dir: /public_html/
+          server-dir: ./public_html/
           # Исключаем файлы, которые не нужно загружать
           exclude: |
             **/.git*
@@ -55,7 +55,7 @@ jobs:
 
           lftp -u ${{ secrets.FTP_USERNAME }},${{ secrets.FTP_PASSWORD }} ftp://${{ secrets.FTP_SERVER }} << 'EOF'
           set ftp:list-options -a
-          cd /public_html
+          cd ./public_html
 
           # Установить 755 рекурсивно (даёт права на чтение всем)
           chmod -R 755 .
