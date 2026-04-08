@@ -52,11 +52,12 @@ export default function InteractiveMap({ regions }: InteractiveMapProps) {
         zoom={3}
         scrollWheelZoom={false}
         dragging={true}
+        attributionControl={false}
         style={{ height: '100%', width: '100%' }}
         className="z-0"
       >
         <TileLayer
-          attribution='&copy; <a href="https://yandex.ru/maps">Яндекс.Карты</a>'
+          attribution=''
           url="https://core-renderer-tiles.maps.yandex.net/tiles?l=map&v=21.06.03-0-b210520143850&x={x}&y={y}&z={z}&scale=1&lang=ru_RU"
         />
         {regionsWithCoordinates.map((region) => (
