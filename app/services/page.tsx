@@ -1,6 +1,9 @@
 import { Building2, Wrench, Factory, FileText, CheckCircle } from 'lucide-react'
 import content from '@/data/content.json'
 import Link from 'next/link'
+import FadeIn from '@/components/animations/FadeIn'
+import StaggerContainer from '@/components/animations/StaggerContainer'
+import StaggerItem from '@/components/animations/StaggerItem'
 
 export default function ServicesPage() {
   const { services } = content
@@ -30,46 +33,48 @@ export default function ServicesPage() {
       {/* Services Grid */}
       <section className="py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <StaggerContainer className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {services.map((service) => {
               const Icon = iconMap[service.icon] || Building2
               return (
-                <div
-                  key={service.id}
-                  className="bg-white border-2 border-gray-200 rounded-lg p-8 hover:border-accent-500 hover:shadow-lg transition-all"
-                >
-                  <div className="flex items-start space-x-4">
-                    <div className="flex-shrink-0">
-                      <div className="h-16 w-16 bg-primary-500 rounded-lg flex items-center justify-center">
-                        <Icon className="h-8 w-8 text-white" />
+                <StaggerItem key={service.id}>
+                  <div className="bg-white border-2 border-gray-200 rounded-lg p-8 hover:border-accent-500 hover:shadow-lg transition-all">
+                    <div className="flex items-start space-x-4">
+                      <div className="flex-shrink-0">
+                        <div className="h-16 w-16 bg-primary-500 rounded-lg flex items-center justify-center">
+                          <Icon className="h-8 w-8 text-white" />
+                        </div>
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="text-2xl font-bold text-primary-500 mb-3">
+                          {service.title}
+                        </h3>
+                        <p className="text-gray-700 leading-relaxed">
+                          {service.description}
+                        </p>
                       </div>
                     </div>
-                    <div className="flex-1">
-                      <h3 className="text-2xl font-bold text-primary-500 mb-3">
-                        {service.title}
-                      </h3>
-                      <p className="text-gray-700 leading-relaxed">
-                        {service.description}
-                      </p>
-                    </div>
                   </div>
-                </div>
+                </StaggerItem>
               )
             })}
-          </div>
+          </StaggerContainer>
         </div>
       </section>
 
       {/* Detailed Services */}
       <section className="py-16 bg-gray-50">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-primary-500 mb-12 text-center">
-            Детальное описание услуг
-          </h2>
+          <FadeIn className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-primary-500">
+              Детальное описание услуг
+            </h2>
+          </FadeIn>
 
-          <div className="space-y-12">
+          <StaggerContainer className="space-y-12">
             {/* Строительство газопроводов */}
-            <div className="bg-white p-8 rounded-lg shadow-md">
+            <StaggerItem>
+              <div className="bg-white p-8 rounded-lg shadow-md">
               <h3 className="text-2xl font-bold text-primary-500 mb-4">
                 Строительство распределительных газопроводов
               </h3>
@@ -100,8 +105,10 @@ export default function ServicesPage() {
               </ul>
             </div>
 
+            </StaggerItem>
             {/* Реконструкция */}
-            <div className="bg-white p-8 rounded-lg shadow-md">
+            <StaggerItem>
+              <div className="bg-white p-8 rounded-lg shadow-md">
               <h3 className="text-2xl font-bold text-primary-500 mb-4">
                 Реконструкция сетей газораспределения
               </h3>
@@ -128,8 +135,10 @@ export default function ServicesPage() {
               </ul>
             </div>
 
+            </StaggerItem>
             {/* Газификация */}
-            <div className="bg-white p-8 rounded-lg shadow-md">
+            <StaggerItem>
+              <div className="bg-white p-8 rounded-lg shadow-md">
               <h3 className="text-2xl font-bold text-primary-500 mb-4">
                 Газификация объектов
               </h3>
@@ -156,8 +165,10 @@ export default function ServicesPage() {
               </ul>
             </div>
 
+            </StaggerItem>
             {/* Проектирование */}
-            <div className="bg-white p-8 rounded-lg shadow-md">
+            <StaggerItem>
+              <div className="bg-white p-8 rounded-lg shadow-md">
               <h3 className="text-2xl font-bold text-primary-500 mb-4">
                 Проектно-изыскательские работы
               </h3>
@@ -183,14 +194,16 @@ export default function ServicesPage() {
                 </li>
               </ul>
             </div>
-          </div>
+            </StaggerItem>
+          </StaggerContainer>
         </div>
       </section>
 
       {/* CTA */}
       <section className="py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="bg-primary-500 text-white p-12 rounded-lg text-center">
+          <FadeIn>
+            <div className="bg-primary-500 text-white p-12 rounded-lg text-center">
             <h2 className="text-3xl font-bold mb-4">
               Нужна консультация по нашим услугам?
             </h2>
@@ -204,6 +217,7 @@ export default function ServicesPage() {
               Связаться с нами
             </Link>
           </div>
+          </FadeIn>
         </div>
       </section>
     </div>
