@@ -7,6 +7,7 @@ import AnimatedGasPipe from '@/components/backgrounds/AnimatedGasPipe'
 import FadeIn from '@/components/animations/FadeIn'
 import StaggerContainer from '@/components/animations/StaggerContainer'
 import StaggerItem from '@/components/animations/StaggerItem'
+import MapWrapper from '@/components/MapWrapper'
 
 export default function Home() {
   const { company, services, partners, regions } = content
@@ -147,15 +148,13 @@ export default function Home() {
           </FadeIn>
           <FadeIn delay={0.2}>
             <div className="bg-white p-8 rounded-lg shadow-md">
-              <div className="aspect-video bg-gradient-to-br from-primary-100 to-primary-50 rounded-lg flex items-center justify-center mb-6">
-                <p className="text-gray-500 text-center px-4">
-                  [Карта России с отмеченными городами: Москва, Санкт-Петербург, Ставрополь, Тула, Архангельск]
-                </p>
+              <div className="mb-8">
+                <MapWrapper regions={regions} />
               </div>
-              <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {regions.slice(0, 5).map((region) => (
+              <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
+                {regions.map((region) => (
                   <StaggerItem key={region.id}>
-                    <div className="text-center p-4 bg-gray-50 rounded-lg">
+                    <div className="text-center p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
                       <h3 className="font-semibold text-primary-500 mb-1">{region.name}</h3>
                       {region.description && (
                         <p className="text-sm text-gray-600">{region.description}</p>
