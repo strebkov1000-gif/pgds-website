@@ -56,8 +56,8 @@ export default function InteractiveMap({ regions }: InteractiveMapProps) {
         className="z-0"
       >
         <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          attribution='&copy; <a href="https://yandex.ru/maps">Яндекс.Карты</a>'
+          url="https://core-renderer-tiles.maps.yandex.net/tiles?l=map&v=21.06.03-0-b210520143850&x={x}&y={y}&z={z}&scale=1&lang=ru_RU"
         />
         {regionsWithCoordinates.map((region) => (
           <Marker
